@@ -1,42 +1,68 @@
 #include <iostream>
 #include <limits>
+#include <cmath>
+
+
 
 int main () {
 
 
-  double a,b,c,op;
+  double a,b,c;
+  char op;
+
+  ///////////// Input 1st number
   std::cout << "Input a number: " << std::endl;
-  std::cin >> a; // number 1 input
-  std::cout << "Input an operation: \n 1 = addition \n 2 = subtraction \n 3 = multiplication \n 4 = division" << std::endl;
-  std::cin >> op; // operator input
-  if (!std::cin || op < 1 || op > 4){
-    std::cout << "Incorrect user input! \n 1 = addition \n 2 = subtraction \n 3 = multiplication \n 4 = division \n Please try again:" << std::endl;
-    //   std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    //    std::cin.clear();
-    std::cin >> op;
+  std::cin >> a;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> a;
   }
-  if (!std::cin || op < 1 || op > 4) return 0;
+
+  ///////////// Input 2nd number
   std::cout << "Input another number: " << std::endl;
-  std::cin >> b; // number 2 input
-
-  //////// Functions
-  if (op == 1){ // add
-    c = a+b;
-    std::cout << "Your answer is = " << c << std::endl;
-  }
-  if (op == 2){ // sub
-    c = a-b;
-    std::cout << "Your answer is = " << c << std::endl;
-  }
-  if (op == 3){ // mult
-    c = a*b;
-    std::cout << "Your answer is = " << c << std::endl;
-  }
-  if (op == 4){ // div
-    c = a/b;
-    std::cout << "Your answer is = " << c << std::endl;
+  std::cin >> b;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> a;
   }
 
- 
+
+  std::cout << "Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program! \n This will be done in the order " << a << "(operator)" << b << ".  What would you like to do? \n" << std::endl;
+  std::cin >> op; // operator input
+  while (std::cin){
+    std::cout << "Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program! \n What would you like to do? \n" << std::endl;
+    //////// Functions ////////
+    if (op == 'a'){ // add
+      c = a+b;
+      std::cout << "Your answer is = " << c << std::endl;
+      break;
+    }
+    else if (op == 's'){ // sub
+      c = a-b;
+      std::cout << "Your answer is = " << c << std::endl;
+      break;
+    }
+    else if (op == 'm'){ // mult
+      c = a*b;
+      std::cout << "Your answer is = " << c << std::endl;
+      break;
+    }
+    else if (op == 'd'){ // div
+      c = a/b;
+      std::cout << "Your answer is = " << c << std::endl;
+      break;
+    }
+    else if (op == 'q') return 0; // checks for quitting
+    else {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    }
+  }
+
+  
 return 0;
 }
