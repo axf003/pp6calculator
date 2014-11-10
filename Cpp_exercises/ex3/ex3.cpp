@@ -8,6 +8,9 @@ void QEsolver();
 void threevector();
 void fourvector();
 void invmass();
+void sort();
+void swap(double& tempA,double& tempB);
+
 
 double addition(double a,double b);
 double subtraction(double a,double b);
@@ -27,7 +30,7 @@ int main () {
 
   char choice;
 
-  std::cout << "\n \nHello, my name is Cassie (short for Casio). What would you like to do?\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles  \n q = quit program and return to the command line" << std::endl;
+  std::cout << "\n \nHello, my name is Cassie (short for Casio). What would you like to do?\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles \n 7 = swap the values of two numbers \n q = quit program and return to the command line" << std::endl;
 
   std::cin >> choice;
 
@@ -59,6 +62,11 @@ int main () {
 
      else if (choice == '6') {
        invmass();
+       break;
+     }
+
+     else if (choice == '7') {
+       sort();
        break;
      }
 
@@ -480,6 +488,43 @@ void invmass() {
 
 
 
+
+void sort() {
+  double number1, number2;
+
+  std::cout << "Please input the first of your two numbers\n";
+  std::cin >> number1;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> number1;
+  }
+
+  std::cout << "Please input the second of your two numbers\n";
+  std::cin >> number2;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> number2;
+  }
+
+  std::cout << "The value of number1 was " << number1 << " and the value of number2 was " << number2 << ".\n";
+
+  swap(number1,number2);
+  std::cout << "\nYour numbers have now changed.\n\nThe value of number1 is now " << number1 << " and the value of number2 is now " << number2 << ".\n";
+}
+
+
+
+
+void swap(double& tempA, double& tempB) {
+  double x;
+  x = tempA;
+  tempA = tempB;
+  tempB = x;
+}
 
 
 
