@@ -10,6 +10,8 @@ void fourvector();
 void invmass();
 void sort();
 void swap(double& tempA,double& tempB);
+void input(double& inputvar);
+
 
 
 double addition(double a,double b);
@@ -45,27 +47,27 @@ int main () {
       break;
     }
 
-     else if (choice == '3') {
+    else if (choice == '3') {
       QEsolver();
       break;
     }
 
-     else if (choice == '4') {
-       threevector();
-       break;
-     }
+    else if (choice == '4') {
+      threevector();
+      break;
+    }
 
-     else if (choice == '5') {
-       fourvector();
-       break;
-     }
+    else if (choice == '5') {
+      fourvector();
+      break;
+    }
 
-     else if (choice == '6') {
-       invmass();
-       break;
-     }
+    else if (choice == '6') {
+      invmass();
+      break;
+    }
 
-     else if (choice == '7') {
+    else if (choice == '7') {
        sort();
        break;
      }
@@ -89,7 +91,15 @@ int main () {
 
 
 
-
+void input(double& inputvar) {
+  std::cin >> inputvar;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> inputvar;
+  }
+}
 
 
 
@@ -104,13 +114,7 @@ void simplesums() {
 
   ///////////// Input 1st number //////////////
   std::cout << "Input a number: " << std::endl;
-  std::cin >> a;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> a;
-  }
+  input(a);
 
 
   std::cout << "\n Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program!" << std::endl;
@@ -131,19 +135,13 @@ void simplesums() {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
-    std::cout << "\n Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program! \n What would you like to do?" << std::endl;
+    std::cout << "\n User error! Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program! \n What would you like to do?" << std::endl;
     std::cin >> op; // operator input
   }
 
   ///////////// Input 2nd number /////////////
   std::cout << "Input another number: " << std::endl;
-  std::cin >> b;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> b;
-  }
+  input(b);
 
   if (op == 'a') {
     std::cout << a << " + " << b << " = " << addition(a,b) << std::endl; 
@@ -178,23 +176,11 @@ void intercept() {
   std::cout << "Welcome to the line intercept calculator. This program will consider the straight line:\n y=mx+c.\nPlease input a gradient for your line: " << std::endl;
  
   ///////////// Input gradient number //////////////
-  std::cin >> m;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> m;
-  }
+  input(m);
 
   ///////////// Input intercept number //////////////
   std::cout << "Now please input a y-intercept for your line: " << std::endl;
-  std::cin >> c;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> c;
-  }
+  input(c);
 
   std::cout << "The x-intercept of the line y=" << m << "x+" << c << " is " << division(c,m) << std::endl;
 
@@ -212,33 +198,15 @@ void QEsolver() {
 
   std::cout << "Welcome to the quadratic equation solver. This program will consider a quadratic equation of the form: y = a(x^2) + b(x) + c.\nPlease input a value for a: " << std::endl;
 
-  std::cin >> a; // input a
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> a;
-  }
+  input(a);
 
 std::cout << "\nPlease input a value for b: " << std::endl;
 
- std::cin >> b; // input b
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> b;
-  }
+ input(b);
 
 std::cout << "\nPlease input a value for c: " << std::endl;
 
- std::cin >> c; // input c
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> c;
-  }
+ input(c);
 
   denominator = 2*a;
   squareroot = b*b - 4*a*c;
@@ -266,35 +234,17 @@ void threevector() {
   double a,b,c,size;
   
   std::cout << "Welcome to the 3-vector mode! Please input the first of the three components:\n";
-  std::cin >> a;                                              
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> a;
-  }
   
+  input(a);
   
   std::cout << "Please input the second of the three components:\n";
   
-  std::cin >> b;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> b;
-  }
+  input(b);
 
   
   std::cout << "Please input the third of the three components:\n";
 
-  std::cin >> c;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> c;
-  }
+  input(c);
 
   size = sqrt(a*a+b*b+c*c);
 
@@ -311,46 +261,21 @@ void fourvector() {
   double a,b,c,d,size;
   
   std::cout << "Welcome to the 4-vector mode! This function uses the (+,-,-,-) metric. Please input the first of the four components:\n";
-  std::cin >> a;                                              
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> a;
-  }
   
+  input(a);
   
   std::cout << "Please input the second of the four components:\n";
   
-  std::cin >> b;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> b;
-  }
+  input(b);
 
   
   std::cout << "Please input the third of the four components:\n";
 
-  std::cin >> c;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> c;
-  }
+  input(c);
 
   std::cout << "Please input the final component:\n";
 
-  std::cin >> d;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> d;
-  }
-
+  input(d);
 
   size = fabs(sqrt(a*a-b*b-c*c-d*d));
 
@@ -378,35 +303,15 @@ void invmass() {
   
   std::cout << "Please input the x-momentum (GeV) of your first particle:\n";
   
-  std::cin >> px1;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> px1;
-  }
+  input(px1);
 
-  
   std::cout << "Please input the y-momentum (GeV) of your first particle:\n";
 
-  std::cin >> py1;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> py1;
-  }
+  input(py1);
 
   std::cout << "Please input the z-momentum (GeV) of your first particle\n";
 
-  std::cin >> pz1;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> pz1;
-  }
-
+  input(pz1);
 
   std::cout << "\nVector 1 = [" << E1 << "," << px1 << "," << py1 << "," << pz1 << "]" << std::endl;
 
@@ -436,35 +341,15 @@ void invmass() {
   
   std::cout << "Please input the x-momentum (GeV) of your second particle:\n";
   
-  std::cin >> px2;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> px2;
-  }
-
+  input(px2);
   
   std::cout << "Please input the y-momentum (GeV) of your second particle:\n";
 
-  std::cin >> py2;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> py2;
-  }
+  input(py2);
 
   std::cout << "Please input the z-momentum (GeV) of your second particle\n";
 
-  std::cin >> pz2;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> pz2;
-  }
-
+  input(pz2);
 
   std::cout << "Vector 2 = [" << E2 << "," << px2 << "," << py2 << "," << pz2 << "]\n" << std::endl;
 
@@ -493,22 +378,10 @@ void sort() {
   double number1, number2;
 
   std::cout << "Please input the first of your two numbers\n";
-  std::cin >> number1;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> number1;
-  }
+  input(number1);
 
   std::cout << "Please input the second of your two numbers\n";
-  std::cin >> number2;
-  while (!std::cin){
-    std::cout << "Incorrect user input! Please input a number:" << std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    std::cin >> number2;
-  }
+  input(number2);
 
   std::cout << "The value of number1 was " << number1 << " and the value of number2 was " << number2 << ".\n";
 
