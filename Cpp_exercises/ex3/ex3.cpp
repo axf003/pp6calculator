@@ -13,6 +13,9 @@ void invmass();
 void sort();
 void swap(double& tempA,double& tempB);
 void input(double& inputvar);
+void intinput(int& inputvar);
+void arrayfn();
+void bubblesort(double *array, int size);
 
 
 
@@ -34,7 +37,7 @@ int main () {
 
   char choice;
 
-  std::cout << "\n \nHello, my name is Cassie (short for Casio). What would you like to do?\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles \n 7 = swap the values of two numbers \n q = quit program and return to the command line" << std::endl;
+  std::cout << "\n \nHello, my name is Cassie (short for Casio). What would you like to do?\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles \n 7 = swap the values of two numbers \n 8 = impliment a bubble sort on a 5 element array \n q = quit program and return to the command line" << std::endl;
 
   std::cin >> choice;
 
@@ -72,7 +75,12 @@ int main () {
     else if (choice == '7') {
        sort();
        break;
-     }
+    }
+
+    else if (choice == '8') {
+      arrayfn();
+      break;
+    }
 
     else if (choice == 'q') {  // checks for quitting
       std::cout << "\nI hope to see you soon\n" << std::endl;
@@ -83,7 +91,7 @@ int main () {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
-    std::cout << "\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles  \n q = quit program and return to the command line" << std::endl;
+    std::cout << "\nPlease select one of my many functions:\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles \n 7 = swap the values of two numbers \n 8 = impliment a bubble sort on a 5 element array \n q = quit program and return to the command line" << std::endl;
     std::cin >> choice; // operator input
   }
 
@@ -100,6 +108,17 @@ void input(double& inputvar) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     std::cin >> inputvar;
+  }
+}
+
+
+void intinput(int& intinputvar) {
+  std::cin >> intinputvar;
+  while (!std::cin){
+    std::cout << "Incorrect user input! Please input a number:" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cin >> intinputvar;
   }
 }
 
@@ -183,6 +202,7 @@ void intercept() {
   input(c);
   if (division(c,m,intercept)==true)  std::cout << "The x-intercept of the line y=" << m << "x+" << c << " is " << *intercept << std::endl;
 
+  delete intercept;
 }
 
 
@@ -405,6 +425,50 @@ void swap(double& tempA, double& tempB) {
   tempA = tempB;
   tempB = x;
 }
+
+
+
+
+
+void arrayfn() {
+  std::cout << "\nHow many elements would you like in your array?\n";
+  int size;
+  intinput(size);
+
+ 
+  double array[size];
+  double *p_array = array;
+
+  for (int i=0; i<size; i++) {
+    std::cout << "Please input element number " << i << " of your " << size << " array elements\n";
+    input(array[i]);
+  }
+
+  bubblesort(p_array,size);
+  
+  std::cout << "\nYour array has now been ordered to [";
+  for (int i=0;i<size;i++) {
+    std::cout << p_array[i];
+    if (i+1<size) std::cout << ",";
+  }
+  std::cout << "]\n";
+}
+
+
+
+void bubblesort(double *array,int size) {
+  int n_changes;
+  while(n_changes!=0) {
+    n_changes = 0;
+    for (int i=0;i<size-1;i++) {
+      if (array[i] < array[i+1]) {
+	swap(array[i],array[i+1]);
+	n_changes++;
+      }
+    }
+  }
+}
+
 
 
 
