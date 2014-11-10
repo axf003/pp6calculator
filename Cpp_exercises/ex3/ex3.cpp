@@ -6,7 +6,9 @@ void simplesums();
 void intercept();
 void QEsolver();
 void threevector();
+double threevectorcalc(double x, double y, double z);
 void fourvector();
+double fourvectorcalc(double t, double x, double y, double z);
 void invmass();
 void sort();
 void swap(double& tempA,double& tempB);
@@ -16,8 +18,8 @@ void input(double& inputvar);
 
 double addition(double a,double b);
 double subtraction(double a,double b);
-double multiplication(double a,double b);
-double division(double a,double b);
+void multiplication(double a,double b,double *answer);
+bool division(double a,double b,  double *answer);
 
 
 
@@ -109,7 +111,8 @@ void input(double& inputvar) {
 
 
 void simplesums() {
-  double a,b;
+  double a,b,*answer;
+  answer = new double;
   char op;
 
   ///////////// Input 1st number //////////////
@@ -117,20 +120,14 @@ void simplesums() {
   input(a);
 
 
-  std::cout << "\n Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n q = quit program!" << std::endl;
+  std::cout << "\n Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n" << std::endl;
   std::cin >> op; // operator input
   while (std::cin){
     //////// Functions ////////
     if (op == 'a')  break;    
     else if (op == 's')  break;
     else if (op == 'm')  break;   
-    else if (op == 'd')  break;
-    
-    else if (op == 'q') {  // checks for quitting
-      std::cout << "\nGoodbye\n" << std::endl;
-      break;
-    }
- 
+    else if (op == 'd')  break; 
     else {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
@@ -152,16 +149,18 @@ void simplesums() {
   }
 
   else if (op == 'm') {
-    std::cout << a << " x " << b << " = " << multiplication(a,b) << std::endl; 
+    multiplication(a,b,answer);
+      std::cout << a << " x " << b << " = " << " : " << *answer << std::endl; 
   }
 
   else if (op == 'd') {
-    std::cout << a << " / " << b << " = " << division(a,b) << std::endl; 
+    if (division(a,b,answer)==true)    std::cout << a << " / " << b << " = " << *answer << std::endl; 
   }
 
   else {
     std::cout << "Sorry, something has gone wrong. Please try again." << std::endl;
   }
+  delete answer;
 
 }
 
@@ -171,7 +170,8 @@ void simplesums() {
 
 
 void intercept() {
-  double c, m;
+  double c, m,*intercept;
+  intercept = new double;
 
   std::cout << "Welcome to the line intercept calculator. This program will consider the straight line:\n y=mx+c.\nPlease input a gradient for your line: " << std::endl;
  
@@ -181,8 +181,7 @@ void intercept() {
   ///////////// Input intercept number //////////////
   std::cout << "Now please input a y-intercept for your line: " << std::endl;
   input(c);
-
-  std::cout << "The x-intercept of the line y=" << m << "x+" << c << " is " << division(c,m) << std::endl;
+  if (division(c,m,intercept)==true)  std::cout << "The x-intercept of the line y=" << m << "x+" << c << " is " << *intercept << std::endl;
 
 }
 
@@ -194,19 +193,21 @@ void intercept() {
 
 void QEsolver() {
 
-  double a,b,c,x,numerator1,numerator2,denominator,squareroot,root1,root2;
+  double a,b,c,x,numerator1,numerator2,denominator,squareroot,*root1,*root2;
+  root1 = new double;
+  root2 = new double;
 
   std::cout << "Welcome to the quadratic equation solver. This program will consider a quadratic equation of the form: y = a(x^2) + b(x) + c.\nPlease input a value for a: " << std::endl;
 
   input(a);
 
-std::cout << "\nPlease input a value for b: " << std::endl;
+  std::cout << "\nPlease input a value for b: " << std::endl;
 
- input(b);
+  input(b);
 
-std::cout << "\nPlease input a value for c: " << std::endl;
+  std::cout << "\nPlease input a value for c: " << std::endl;
 
- input(c);
+  input(c);
 
   denominator = 2*a;
   squareroot = b*b - 4*a*c;
@@ -216,11 +217,12 @@ std::cout << "\nPlease input a value for c: " << std::endl;
   else {
     numerator1 = (-1)*b + sqrt(squareroot);
     numerator2 = (-1)*b - sqrt(squareroot);
-    root1 = division(numerator1,denominator);
-    root2 = division(numerator2,denominator);
-    std::cout << "The roots for your equation (y = " << a << "(x^2) + " << b << "(x) + " << c << ") are " << root1 << " and " << root2 << ".\n";
+    if (division(numerator1,denominator,root1)==true && division(numerator2,denominator,root2)==true) {
+      std::cout << "The roots for your equation (y = " << a << "(x^2) + " << b << "(x) + " << c << ") are " << *root1 << " and " << *root2 << ".\n";
+    }
   }
-
+  delete root1;
+  delete root2;
 }
 
 
@@ -246,14 +248,16 @@ void threevector() {
 
   input(c);
 
-  size = sqrt(a*a+b*b+c*c);
+  threevectorcalc(a,b,c);
 
-  std::cout << "The size of your vector (" << a << "," << b << "," << c << ") is " << size << std::endl;
+  std::cout << "The size of your vector (" << a << "," << b << "," << c << ") is " << threevectorcalc(a,b,c) << std::endl;
 
 }
 
 
-
+double threevectorcalc(double x, double y, double z) {
+  return sqrt(x*x+y*y+z*z);
+}
 
 
 
@@ -277,18 +281,21 @@ void fourvector() {
 
   input(d);
 
-  size = fabs(sqrt(a*a-b*b-c*c-d*d));
-
-  std::cout << "The length of your vector [" << a << "," << b << "," << c << "," << d << "] is " << size << std::endl;
+  std::cout << "The length of your vector [" << a << "," << b << "," << c << "," << d << "] is " << fourvectorcalc(a,b,c,d) << std::endl;
 
 }
 
 
 
+double fourvectorcalc(double t, double x, double y, double z) {
+  return fabs(sqrt(t*t-x*x-y*y-z*z));
+}
+
+
 
 
 void invmass() {
-  double E1,px1,py1,pz1,E2,px2,py2,pz2,size1,size2,mass;
+  double E1,px1,py1,pz1,E2,px2,py2,pz2,p1,p2,mass;
   
   while (std::cin) {
   std::cout << "\nWelcome to the invariant mass of two particles mode! \nWe will start by inputting your first particle's four momentum in the form:\n (E,px,py,pz)\nPlease input the energy (GeV) of your first particle:\n";
@@ -317,8 +324,8 @@ void invmass() {
 
 
 
- size1 = sqrt(px1*px1+py1*py1+pz1*pz1);
-  if (E1<size1) {
+ p1 = sqrt(px1*px1+py1*py1+pz1*pz1);
+  if (E1<p1) {
     std::cout << "\nYour particle's momentum is greater than it's energy... this seems a little suspicious. Why not try again?\n" << std::endl;
     continue;
   }
@@ -353,8 +360,8 @@ void invmass() {
 
   std::cout << "Vector 2 = [" << E2 << "," << px2 << "," << py2 << "," << pz2 << "]\n" << std::endl;
 
-  size2 = sqrt(px2*px2+py2*py2+pz2*pz2);
-  if (E2<size2) {
+  p2 = sqrt(px2*px2+py2*py2+pz2*pz2);
+  if (E2<p2) {
     std::cout << "\nYour particle's momentum is greater than it's energy... this seems a little suspicious. Why not try again?\n" << std::endl;
     continue;
   }
@@ -411,14 +418,20 @@ double subtraction(double a,double b){
   return a-b;
 }
 
-double multiplication(double a,double b){
-  return a*b;
+void multiplication(double a,double b, double *answer){
+  *answer = a*b;
 }
 
-double division(double a,double b){
-  return a/b;
+bool  division(double a,double b, double *answer){
+  if (b==0) {
+    std::cout << "\nDiv by zero!\n";
+    return false;
+  }
+  else {
+    *answer = a/b;
+    return true;
+  }
 }
-
 
 
 
