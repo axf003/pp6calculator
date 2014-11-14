@@ -18,7 +18,13 @@ void swap(double& tempA,double& tempB);
 void input(double& inputvar);
 void intinput(int& inputvar);
 void arrayfn();
-void bubblesort(double *array, int size);
+void bubblesort(double *array,double *index1,double *index2, int size);
+void RandomParticles();
+double stddev(double *array,double N,double mean);
+void readingfiles();
+
+
+
 
 double addition(double a,double b);
 double subtraction(double a,double b);
