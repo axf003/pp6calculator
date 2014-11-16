@@ -2,10 +2,10 @@
 #define PP6CALCULATOR_PP6MATH_HH
 
 //////////////////////////// FUNCTION DECLARATIONS ////////////////////
-int day1();
+int day1(); // different functions to access work done on different days
 int day2();
 
-void simplesums();
+void simplesums(); // main functions
 void intercept();
 void QEsolver();
 void threevector();
@@ -26,7 +26,7 @@ void readingfiles();
 
 
 
-double addition(double a,double b);
+double addition(double a,double b); // simple maths functions
 double subtraction(double a,double b);
 void multiplication(double a,double b,double *answer);
 bool division(double a,double b, double *answer);

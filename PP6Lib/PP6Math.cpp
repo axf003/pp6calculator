@@ -11,13 +11,13 @@
 /////////////////////// FUNCTION DEFINITIONS /////////////////////////////////////
 
 
-int day1(){
+int day1(){ // Functions developed on day 1
 
   char choice;
   std::cout << "\nWhat would you like to do?\n 1 = do a basic sum (addition, subtraction, multiplication or division) \n 2 = calculate the intercept of a line \n 3 = solve a quadratic equation \n 4 = calculate the size of a 3-vector \n 5 = calculate the size of a 4-vector \n 6 = calculate the invariant mass of two particles \n q = quit program and return to the command line" << std::endl;
   std::cin >> choice;
 
-  while (std::cin){
+  while (true){
     //////// Functions ////////
     if (choice == '1') {
       simplesums();
@@ -61,18 +61,13 @@ int day1(){
 
 
 
-
-
-
-
-
-int day2(){
+int day2(){ // Functions developed on day 2
 
   char choice;
   std::cout << "\nPlease select a function:\n 1 = swap the values of two numbers \n 2 = impliment a bubble sort on an n-element array \n 3 = Generate some random particles \n 4 = Read in data on some muons and calculate the highest invariant masses possible \n q = quit program and return to the command line\n" << std::endl;
   std::cin >> choice;
 
-  while (std::cin){
+  while (true){
     //////// Functions ////////
     if (choice == '1') {
       sort();
@@ -107,16 +102,9 @@ int day2(){
 
 
 
-
-
-
-
-
-
-
 /////////////////////// INPUT CHECKS ////////////////////////////////////////////
 
-void input(double& inputvar) {
+void input(double& inputvar) { // checks if an input was a double
   std::cin >> inputvar;
   while (!std::cin){
     std::cout << "Incorrect user input! Please input a number:" << std::endl;
@@ -125,7 +113,7 @@ void input(double& inputvar) {
     std::cin >> inputvar;
   }
 }
-void intinput(int& intinputvar) {
+void intinput(int& intinputvar) { // checks if an input was an integer
   std::cin >> intinputvar;
   while (!std::cin){
     std::cout << "Incorrect user input! Please input a number:" << std::endl;
@@ -134,12 +122,6 @@ void intinput(int& intinputvar) {
     std::cin >> intinputvar;
   }
 }
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -155,7 +137,7 @@ void simplesums() {
   std::cout << "\n Input an operation: \n a = addition \n s = subtraction \n m = multiplication \n d = division \n" << std::endl;
   std::cin >> op; // operator input
 
-  while (std::cin){
+  while (true){ // Which standard mathematical operation has the user chosen?
     //////// Functions ////////
     if (op == 'a') break;
     else if (op == 's') break;
@@ -174,7 +156,7 @@ void simplesums() {
 
   std::cout << "Input another number: " << std::endl;
   input(b);
-  if (op == 'a') {
+  if (op == 'a') { // Perform the operations
     std::cout << a << " + " << b << " = " << addition(a,b) << std::endl;
   }
   else if (op == 's') {
@@ -190,16 +172,8 @@ void simplesums() {
   else {
     std::cout << "Sorry, something has gone wrong. Please try again." << std::endl;
   }
-  delete answer;
+  delete answer; // delete the answer pointer
 }
-
-
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -209,27 +183,19 @@ void intercept() {
   double c, m,*intercept;
   intercept = new double;
   std::cout << "Welcome to the line intercept calculator. This program will consider the straight line:\n y=mx+c.\nPlease input a gradient for your line: " << std::endl;
-  ///////////// Input gradient number //////////////
-  input(m);
-  ///////////// Input intercept number //////////////
+  input(m); // input gradient
   std::cout << "Now please input a y-intercept for your line: " << std::endl;
-  input(c);
+  input(c); // ipinpuintercept
   if (division(c,m,intercept)==true) std::cout << "The x-intercept of the line y=" << m << "x+" << c << " is " << *intercept << std::endl;
   delete intercept;
 }
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////
 //////////////////// QUADRATIC EQUATION SOLVER ///////////////////////////////////////////////
 
 void QEsolver() {
-  double a,b,c,numerator1,numerator2,denominator,squareroot,*root1,*root2;
+  double a,b,c,numerator1,numerator2,denominator,squareroot,*root1,*root2; // a b and c arethe quadratic variables
   root1 = new double;
   root2 = new double;
   std::cout << "Welcome to the quadratic equation solver. This program will consider a quadratic equation of the form: y = a(x^2) + b(x) + c.\nPlease input a value for a: " << std::endl;
@@ -255,13 +221,6 @@ void QEsolver() {
 }
 
 
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 //////////////////// THREE VECTOR FUNCTION ///////////////////////////////////////////////
 
@@ -278,27 +237,12 @@ void threevector() {
 }
 
 
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 ////////////////////// THREE VEC CALCULATION/////////////////////////////////////////////
 
-double threevectorcalc(double x, double y, double z) {
+double threevectorcalc(double x, double y, double z) { // calculates the size of a thre vector
   return sqrt(x*x+y*y+z*z);
 }
-
-
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -318,41 +262,23 @@ void fourvector() {
 }
 
 
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 //////////////// FOUR VEC CALCULATION///////////////////////////////////////////////////
 
-double fourvectorcalc(double t, double x, double y, double z) {
+double fourvectorcalc(double t, double x, double y, double z) { // calculates thsize of a four vector
   return fabs(sqrt(t*t-x*x-y*y-z*z));
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////// INVARIANT MASS //////////////////////////////////////////////
 
 void invmass() {
-  double E1,px1,py1,pz1,E2,px2,py2,pz2,p1,p2,mass;
-  while (std::cin) {
+  double E1,px1,py1,pz1,E2,px2,py2,pz2,p1,p2,mass; // 1's and 2's refer to particle 1 and 2
+  while (true) {
     std::cout << "\nWelcome to the invariant mass of two particles mode! \nWe will start by inputting your first particle's four momentum in the form:\n (E,px,py,pz)\nPlease input the energy (GeV) of your first particle:\n";
     std::cin >> E1;
-    while (!std::cin || E1 <= 0){
+    while (!std::cin || E1 <= 0){ // Energy must be positive
       std::cout << "Incorrect user input! Please input a number greater than zero:" << std::endl;
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
@@ -366,7 +292,7 @@ void invmass() {
     input(pz1);
     std::cout << "\nVector 1 = [" << E1 << "," << px1 << "," << py1 << "," << pz1 << "]" << std::endl;
     p1 = sqrt(px1*px1+py1*py1+pz1*pz1);
-    if (E1<p1) {
+    if (E1<p1) { // Energy must be greater than momentum
       std::cout << "\nYour particle's momentum is greater than it's energy... this seems a little suspicious. Why not try again?\n" << std::endl;
       continue;
     }
@@ -398,18 +324,10 @@ void invmass() {
 }
 
 
-
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 //////////////////// SORT FUNCTION ///////////////////////////////////////////////
 
-void sort() {
+void sort() { // user can input two numbers that they want to input to the swap function
   double number1, number2;
   std::cout << "Please input the first of your two numbers\n";
   input(number1);
@@ -421,31 +339,15 @@ void sort() {
 }
 
 
-
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 ////////////////////// SWAP FUNCTION /////////////////////////////////////////////
 
-void swap(double& tempA, double& tempB) {
+void swap(double& tempA, double& tempB) { // swaps two numbers
   double x;
   x = tempA;
   tempA = tempB;
   tempB = x;
 }
-
-
-
-
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////// ARRAY SORTING FUNCTION //////////////////////////////////////////////
@@ -454,7 +356,7 @@ void arrayfn() {
   std::cout << "\nHow many elements would you like in your array?\n";
   int size;
   intinput(size);
-  double array[10000];
+  double array[10000]; // use 10000 to to create a large array that will always be bigger than 'int size' as cannot input a variable into an array
   double *p_array = array;
   double index[10000];
   double *p_index = index;
@@ -477,17 +379,10 @@ void arrayfn() {
 }
 
 
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 ////////////////// BUBBLE SORT ALGORITHM /////////////////////////////////////////////////
 
-void bubblesort(double *array,double *index1,double *index2,int size) {
+void bubblesort(double *array,double *index1,double *index2,int size) { // cycles through and swaps vaalue i with i+1 if  i+1 is larger
   int n_changes;
  
   while(n_changes!=0) {
@@ -495,7 +390,7 @@ void bubblesort(double *array,double *index1,double *index2,int size) {
     for (int i=0;i<size-1;i++) {
       if (array[i] < array[i+1]) {
 	swap(array[i],array[i+1]);
-	swap(index1[i],index1[i+1]);
+	swap(index1[i],index1[i+1]); // index keeps track of the ordering of the new array relative to the old one
 	swap(index2[i],index2[i+1]);
 	n_changes++;
       }
@@ -520,22 +415,6 @@ void bubblesort(double *array,double *index1,double *index2,int size) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////////////////////////////////////////////////////////
 //////////////////////////// RANDOM ENERGIES AND MOMENTA ////////////////////////
 
@@ -557,7 +436,7 @@ void RandomParticles() {
 
   for(int i=0; i< nparticles ; i++){ // loop to fill momenta
     index[i] = i;
-    arraypx[i] = rand()%100;
+    arraypx[i] = rand()%100; // create random momenta
     arraypy[i] = rand()%100;
     arraypz[i] = rand()%100;
     mom = threevectorcalc(arraypx[i],arraypy[i],arraypz[i]);
@@ -568,20 +447,15 @@ void RandomParticles() {
   Ebar = Etotal/nparticles;
   std::cout << "\n The mean energy of the random particles is " << Ebar << " GeV and the standard deviation is " << stddev(p_arrayE,nparticles,Ebar) << "GeV.\n";
   
-  double dummyarray[10000];
+  double dummyarray[10000]; // needed to fill arguments of bubble sort function
   double *p_dummyarray=dummyarray;
   bubblesort(p_arrayE,p_index,p_dummyarray,nparticles);
 }
-
-
 ///////////////
-
-
-
-
+/////// STANDARD DEVIATION FN
 double stddev(double *array, double N, double mean) {
   double var = 0;
-  double invN = 1/N;
+  double invN = 1/N; // makes program quicker thhan repeating long division multiple times
   for(int i=0; i<N; i++) {
     var += invN*(array[i]-mean)*(array[i]-mean);
   }
@@ -590,12 +464,9 @@ double stddev(double *array, double N, double mean) {
 //////////////////////////////////////////////////////////////////////
 
 
-
-
-
-void readingfiles() {
-  int numberp=0;
-  int numberm=0;
+void readingfiles() { // Function that reads in particles data file and finds muons
+  int numberp=0; // p refers to positive muons
+  int numberm=0; // m refers to mu minus
   double muonmass = 0.1056583715, mom=0;
   double arraypxm[1000]; // for mu-
   double arraypym[1000];
@@ -618,13 +489,11 @@ void readingfiles() {
 
 
   // Open the file to be read
-  FileReader f("observedparticles.dat");
+  FileReader f("observedparticles.dat"); // file must be in build directory
   // Only process if the file is open/valid
 
   if (f.isValid()) {
     // Loop until out of lines
-
-
     while (f.nextLine()) {
       if (f.getFieldAsString(6) =="run4.dat" && f.getFieldAsString(2)=="mu+"){
 	arraypxp[numberp] = f.getFieldAsDouble(3);
@@ -655,7 +524,7 @@ void readingfiles() {
     for(int j=0;j<numberm;j++){
       arrayInvM[nmasses] = fourvectorcalc((arrayEp[i]+arrayEm[j]),(arraypxp[i]+arraypxm[j]),(arraypyp[i]+arraypym[j]),(arraypzp[i]+arraypzm[j]));
       arrayInvMindexp[nmasses]=arrayNp[i];
-      arrayInvMindexm[nmasses]=arrayNm[j];
+      arrayInvMindexm[nmasses]=arrayNm[j]; // need both of these as may be a different number of mu + and - that meet the criteria
       nmasses++;
     }
   }
@@ -666,11 +535,7 @@ void readingfiles() {
   for(int i=0;i<10;i++){
     std::cout << p_arrayInvM[i] << "GeV, made using mu+ event number " << p_arrayInvMindexp[i] << " and mu- event number " <<  p_arrayInvMindexm[i] << "\n";
   }
-
-
-
 }
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -682,11 +547,11 @@ double addition(double a,double b){
 double subtraction(double a,double b){
   return a-b;
 }
-void multiplication(double a,double b, double *answer){
+void multiplication(double a,double b, double *answer){ // use pointers
   *answer = a*b;
 }
 bool division(double a,double b, double *answer){
-  if (b==0) {
+  if (b==0) { // check for dividing by zero
     std::cout << "\nDiv by zero!\n";
     return false;
   }

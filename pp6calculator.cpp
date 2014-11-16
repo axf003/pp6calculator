@@ -12,7 +12,7 @@ int main () {
   std::cout << "\nWelcome to the pp6 calculator. Pick a day's functions to use:\n1 = day 1's functions\n2 = day 2's functions\n'q' to quit program and return to the command line" << std::endl;
   std::cin >> choice;
 
-  while (std::cin){
+  while (true){
     //////// List of days ////////
     if (choice == '1') {
       day1();
@@ -26,7 +26,7 @@ int main () {
       std::cout << "\nI hope to see you soon\n" << std::endl;
       return 0;
     }
-    else {
+    else { //cin if poor user input
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
