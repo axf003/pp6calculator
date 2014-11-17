@@ -1,5 +1,7 @@
 #include "PP6Math.hpp"
 #include "../FileReader/FileReader.hpp"
+#include "../FourVec/FourVec.hpp"
+
 
 #include <iostream>
 #include <limits>
@@ -99,6 +101,43 @@ int day2(){ // Functions developed on day 2
 
   return 0;
 }
+
+
+int day3(){ // Functions developed on day 2
+
+  char choice;
+  std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new class style and calculate the space-time interval \n q = quit program and return to the command line\n" << std::endl;
+  std::cin >> choice;
+
+  while (true){
+    //////// Functions ////////
+    if (choice == '1') {
+      zboost();
+      break;
+    }
+
+    if (choice == '2') {
+      LorentzFourVec();
+      break;
+    }
+    else if (choice == 'q') { // checks for quitting
+      std::cout << "\nI hope to see you soon\n" << std::endl;
+      return 0;
+    }
+    else {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    }
+    std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new struct style and calculate the space-time interval\n q = quit program and return to the command line\n" << std::endl;
+    std::cin >> choice; // operator input
+  }
+
+  return 0;
+}
+
+
+
+
 
 
 
@@ -265,7 +304,7 @@ void fourvector() {
 ///////////////////////////////////////////////////////////////////
 //////////////// FOUR VEC CALCULATION///////////////////////////////////////////////////
 
-double fourvectorcalc(double t, double x, double y, double z) { // calculates thsize of a four vector
+double fourvectorcalc(double t, double x, double y, double z) { // calculates the size of a four vector
   return fabs(sqrt(t*t-x*x-y*y-z*z));
 }
 
@@ -505,7 +544,7 @@ void readingfiles() { // Function that reads in particles data file and finds mu
 	numberp++;
       }
       if (f.getFieldAsString(6) =="run4.dat" && f.getFieldAsString(2)=="mu-"){
-	arraypxm[numberm] = f.getFieldAsDouble(3);
+	arraypxm[numberm] = f.getFieldAsDouble(3); // reads in various parts of txt file
 	arraypym[numberm] = f.getFieldAsDouble(4);
 	arraypzm[numberm] = f.getFieldAsDouble(5);
        	arrayNm[numberm] = f.getFieldAsInt(1);
@@ -522,7 +561,7 @@ void readingfiles() { // Function that reads in particles data file and finds mu
   int nmasses = 0;
   for(int i=0;i<numberp;i++){
     for(int j=0;j<numberm;j++){
-      arrayInvM[nmasses] = fourvectorcalc((arrayEp[i]+arrayEm[j]),(arraypxp[i]+arraypxm[j]),(arraypyp[i]+arraypym[j]),(arraypzp[i]+arraypzm[j]));
+      arrayInvM[nmasses] = (fourvectorcalc((arrayEp[i]+arrayEm[j]),(arraypxp[i]+arraypxm[j]),(arraypyp[i]+arraypym[j]),(arraypzp[i]+arraypzm[j])));
       arrayInvMindexp[nmasses]=arrayNp[i];
       arrayInvMindexm[nmasses]=arrayNm[j]; // need both of these as may be a different number of mu + and - that meet the criteria
       nmasses++;
@@ -535,6 +574,55 @@ void readingfiles() { // Function that reads in particles data file and finds mu
   for(int i=0;i<10;i++){
     std::cout << p_arrayInvM[i] << "GeV, made using mu+ event number " << p_arrayInvMindexp[i] << " and mu- event number " <<  p_arrayInvMindexm[i] << "\n";
   }
+}
+
+
+/////////////////////////////////////////////////////////////////
+/////////////////// Z-BOOST ////////////////
+
+void zboost(){
+  double x=0,y=0,z=0,t=0,B=0,z1=0,t1=0;
+  std::cout << "\nFirst we will input your four-vector in the form (t,x,y,z). First input t:\n";
+  input(t);
+  std::cout << "\nand now x:\n";
+  input(x);
+  std::cout << "\nand now y:\n";
+  input(y);
+  std::cout << "\nand now z:\n";
+  input(z);
+  std::cout << "\nInput a z-velocity in verms of B (where Beta=v/c):\n";
+  input(B);
+  
+  zboostcalc(z,t,B,z1,t1);
+
+  std::cout << "\nYour original 4-vector was (" << t << "," << x << "," << y << "," << z << ") and when boosted in the z direction with a beta of " << B << " the new vector is (" << t1 << "," << x << "," << y << "," << z1 << ").\n";
+}
+
+void zboostcalc(double z, double t, double B, double& z1, double& t1){
+  double gamma = 1/(1-B*B);
+  z1 = -B*gamma*t + gamma*z;
+  t1 = gamma*t - B*gamma*z;
+}
+
+/////////////////////////////////////////////////////////
+/////////////// 
+
+void LorentzFourVec() {
+  double x=0,y=0,z=0,t=0;
+  std::cout << "\nInput t:\n";
+  input(t);
+  std::cout << "\nInput x:\n";
+  input(x);
+  std::cout << "\nInput y:\n";
+  input(y);
+  std::cout << "\nInput z:\n";
+  input(z);
+  FourVector v(t,x,y,z);
+  double B=0;
+  std::cout << "\nInput velocity Beta:\n";
+  input(B);
+  v.boost(B);
+  std::cout << "\nThe spacetime interval is:\n" << v.interval() << std::endl;
 }
 
 
