@@ -26,6 +26,7 @@ void readingfiles();
 void zboost();
 void zboostcalc(double z, double t, double B, double& z1, double& t1);
 void LorentzFourVec();
+void PMOneVector();
 
 double addition(double a,double b); // simple maths functions
 double subtraction(double a,double b);

@@ -106,7 +106,7 @@ int day2(){ // Functions developed on day 2
 int day3(){ // Functions developed on day 2
 
   char choice;
-  std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new class style and calculate the space-time interval \n q = quit program and return to the command line\n" << std::endl;
+  std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new class style and calculate the space-time interval\n 3 = Add/Subtract two four-vectors together \n q = quit program and return to the command line\n" << std::endl;
   std::cin >> choice;
 
   while (true){
@@ -120,6 +120,12 @@ int day3(){ // Functions developed on day 2
       LorentzFourVec();
       break;
     }
+
+    if (choice == '3') {
+      PMOneVector();
+      break;
+    }
+
     else if (choice == 'q') { // checks for quitting
       std::cout << "\nI hope to see you soon\n" << std::endl;
       return 0;
@@ -128,7 +134,7 @@ int day3(){ // Functions developed on day 2
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
-    std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new struct style and calculate the space-time interval\n q = quit program and return to the command line\n" << std::endl;
+    std::cout << "\nPlease select a function:\n 1 = Apply a lorentz boost to a 4-vector \n 2 = Apply a lorentz boost to a 4-vector using new struct style and calculate the space-time interval\n 3 = Add/Subtract two four-vectors together \n q = quit program and return to the command line\n" << std::endl;
     std::cin >> choice; // operator input
   }
 
@@ -605,7 +611,7 @@ void zboostcalc(double z, double t, double B, double& z1, double& t1){
 }
 
 /////////////////////////////////////////////////////////
-/////////////// 
+/////////////// INTERVAL AND BOOST OF A FOUR_VEC
 
 void LorentzFourVec() {
   double x=0,y=0,z=0,t=0;
@@ -623,6 +629,40 @@ void LorentzFourVec() {
   input(B);
   v.boost(B);
   std::cout << "\nThe spacetime interval is:\n" << v.interval() << std::endl;
+}
+
+//////////////////////////////////////////////////////////
+///////////////// += FN FOR FOUR_VECS
+
+void PMOneVector(){
+  double x=0,y=0,z=0,t=0;
+  std::cout << "We will input the first vector, of form (t,x,y,z), that we want to add\nInput t:\n";
+  input(t);
+  std::cout << "\nInput x:\n";
+  input(x);
+  std::cout << "\nInput y:\n";
+  input(y);
+  std::cout << "\nInput z:\n";
+  input(z);
+  FourVector v(t,x,y,z);
+
+  std::cout << "\nWould you like to plus or minus a four vector from this?\n p = plus \n m = minus \n";
+
+  char PlusorMinus;
+  std::cin >> PlusorMinus;
+
+ while (true){
+    if (PlusorMinus == 'p') break;
+    else if (PlusorMinus == 'm') break;
+    else {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    }
+    std::cout << "\n User error! Input an operation: \n p = plus\n m = minus\n" << std::endl;
+    std::cin >> PlusorMinus; // operator input
+  }
+
+  v.PMequals(PlusorMinus);
 }
 
 
