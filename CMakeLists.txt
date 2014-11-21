@@ -18,10 +18,11 @@ include_directories(PP6Lib FileReader)
 add_subdirectory(PP6Lib)
 add_subdirectory(FileReader)
 add_subdirectory(FourVec)
+add_subdirectory(ThreeVec)
 
 add_executable(pp6calculator pp6calculator.cpp)
 
-target_link_libraries(pp6calculator pp6lib FileReader FourVec)
+target_link_libraries(pp6calculator pp6lib FileReader FourVec ThreeVec)
 
 install(TARGETS pp6calculator DESTINATION bin)
 

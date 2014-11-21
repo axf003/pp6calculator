@@ -1,6 +1,7 @@
 #include "PP6Math.hpp"
 #include "../FileReader/FileReader.hpp"
 #include "../FourVec/FourVec.hpp"
+#include "../ThreeVec/ThreeVec.hpp"
 
 
 #include <iostream>
@@ -121,10 +122,10 @@ int day3(){ // Functions developed on day 2
       break;
     }
 
-    if (choice == '3') {
+    /*    if (choice == '3') {
       PMOneVector();
       break;
-    }
+      }*/
 
     else if (choice == 'q') { // checks for quitting
       std::cout << "\nI hope to see you soon\n" << std::endl;
@@ -631,39 +632,6 @@ void LorentzFourVec() {
   std::cout << "\nThe spacetime interval is:\n" << v.interval() << std::endl;
 }
 
-//////////////////////////////////////////////////////////
-///////////////// += FN FOR FOUR_VECS
-
-void PMOneVector(){
-  double x=0,y=0,z=0,t=0;
-  std::cout << "We will input the first vector, of form (t,x,y,z), that we want to add\nInput t:\n";
-  input(t);
-  std::cout << "\nInput x:\n";
-  input(x);
-  std::cout << "\nInput y:\n";
-  input(y);
-  std::cout << "\nInput z:\n";
-  input(z);
-  FourVector v(t,x,y,z);
-
-  std::cout << "\nWould you like to plus or minus a four vector from this?\n p = plus \n m = minus \n";
-
-  char PlusorMinus;
-  std::cin >> PlusorMinus;
-
- while (true){
-    if (PlusorMinus == 'p') break;
-    else if (PlusorMinus == 'm') break;
-    else {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    }
-    std::cout << "\n User error! Input an operation: \n p = plus\n m = minus\n" << std::endl;
-    std::cin >> PlusorMinus; // operator input
-  }
-
-  v.PMequals(PlusorMinus);
-}
 
 
 ///////////////////////////////////////////////////////////////////

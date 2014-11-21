@@ -1,6 +1,9 @@
 // FourVec.cpp
 #include "FourVec.hpp"
+#include "../ThreeVec/ThreeVec.hpp"
 #include "PP6Math.hpp"
+#include "../ThreeVec/ThreeVec.hpp"
+
 
 #include <iostream>
 #include <limits>
@@ -27,12 +30,48 @@ void destroyFourVec(FourVector *&v) {
   }
 }
 
-/*void FourVector::setFourVec(double t,double x,double y,double z){
-    m_t = t;
-    m_x = x;
-    m_y = y;
-    m_z = z;
-    }*/
+double FourVector::GetT() {
+  return m_t;
+}
+
+double FourVector::GetX() {
+  return m_x;
+}
+
+double FourVector::GetY() {
+  return m_y;
+}
+
+double FourVector::GetZ() {
+  return m_z;
+}
+
+ThreeVector FourVector::GetThreeVector() {
+  ThreeVector v(m_x,m_y,m_z);
+  return v;
+}
+
+void FourVector::SetT(double T) {
+  m_t=T;
+}
+
+void FourVector::SetX(double X) {
+  m_x=X;
+}
+
+void FourVector::SetY(double Y) {
+  m_y=Y;
+}
+
+void FourVector::SetZ(double Z) {
+  m_z=Z;
+}
+
+void FourVector::SetThreeVector(ThreeVector& v){
+  m_x=v.GetX();
+  m_y=v.GetY();
+  m_z=v.GetZ();
+}
 
 void FourVector::boost(double B) {
   double gamma = 1/(1-B*B);
@@ -53,38 +92,51 @@ double FourVector::interval() const {
   return m_interval;
 }
 
-void FourVector::PMequals(char PlusorMinus) {
-  double t=0,x=0,y=0,z=0;
-
-  if (PlusorMinus == 'p'){
-  std::cout << "We will now input the second vector, of form (t,x,y,z), that we want to add\nInput t:\n";
-  }
-  if (PlusorMinus == 'm'){
-  std::cout << "We will now input the second vector, of form (t,x,y,z), that we want to subtract\nInput t:\n";
-  }
-  input(t);
-  std::cout << "\nInput x:\n";
-  input(x);
-  std::cout << "\nInput y:\n";
-  input(y);
-  std::cout << "\nInput z:\n";
-  input(z);
-  FourVector vadd(t,x,y,z);
-
-  FourVector vanswer(0,0,0,0);
-
-  if (PlusorMinus == 'p'){
-  vanswer.m_t = m_t + vadd.m_t;
-  vanswer.m_x = m_x + vadd.m_x;
-  vanswer.m_y = m_y + vadd.m_y;
-  vanswer.m_z = m_z + vadd.m_z;
-  }
-  else if (PlusorMinus == 'm'){
-  vanswer.m_t = m_t - vadd.m_t;
-  vanswer.m_x = m_x - vadd.m_x;
-  vanswer.m_y = m_y - vadd.m_y;
-  vanswer.m_z = m_z - vadd.m_z;
-  }
-  
-  std::cout << "\nAnswer four-vec is (" << vanswer.m_t << "," << vanswer.m_x << "," << vanswer.m_y << "," << vanswer.m_z << ")\n";
+FourVector& FourVector::operator+=(const FourVector& rhs) {
+  m_t += rhs.m_t;
+  m_x += rhs.m_x;
+  m_y += rhs.m_y;
+  m_z += rhs.m_z;
+  return *this;
 }
+
+FourVector& FourVector::operator-=(const FourVector& rhs) {
+  m_t -= rhs.m_t;
+  m_x -= rhs.m_x;
+  m_y -= rhs.m_y;
+  m_z -= rhs.m_z;
+  return *this;
+}
+
+FourVector& FourVector::operator*=(const FourVector& rhs) {
+  m_t *= rhs.m_t;
+  m_x *= rhs.m_x;
+  m_y *= rhs.m_y;
+  m_z *= rhs.m_z;
+  return *this;
+}
+
+FourVector& FourVector::operator/=(const FourVector& rhs) {
+  m_t /= rhs.m_t;
+  m_x /= rhs.m_x;
+  m_y /= rhs.m_y;
+  m_z /= rhs.m_z;
+  return *this;
+}
+
+FourVector& FourVector::operator=(const FourVector& rhs) {
+  if(&rhs != this) {
+    m_t = rhs.m_t;
+    m_x = rhs.m_x;
+    m_y = rhs.m_y;
+    m_z = rhs.m_z;
+  }
+  return *this;
+}
+
+FourVector operator+(const FourVector lhs, const FourVector rhs) {
+  FourVector temp(lhs);
+  temp+=rhs;
+  return temp;
+}
+
