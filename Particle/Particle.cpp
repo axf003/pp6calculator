@@ -37,40 +37,54 @@ void destroyParticle(Particle *&p) {
   }
 }
 
-double ThreeVector::GetX() {
-  return m_x;
+double Particle::GetEnergy() {
+  //  FourVector v4 = GetFourMomentum();
+  //  ThreeVector v3 = v4.GetThreeVector();
+  double E = sqrt( (m_mass)*(m_mass) + (m_momentum.m_x)*(m_momentum.m_x) + (m_momentum.m_Y)*(m_momentum.m_y) + (m_momentum.m_z)*(m_momentum.m_z) );
+  return E;
 }
 
-double ThreeVector::GetY() {
-  return m_y;
+FourVector& Particle::GetFourMomentum() {
+  FourVector v(Particle::GetEnergy(),m_momentum.m_x,m_momentum.m_y,m_momentum.m_z);
+  return v;
 }
 
-double ThreeVector::GetZ() {
-  return m_z;
+int Particle::GetPDGCode() {
+  return m_PDG_code;
 }
 
-void ThreeVector::SetX(double X) {
-  m_x=X;
+double Particle::GetMassGeV() {
+  return m_mass;
 }
 
-void ThreeVector::SetY(double Y) {
-  m_y=Y;
+double Particle::GetMagMomentum() {
+  //  ThreeVector m = Particle::GetThreeMomentum();
+  //  return m.ThreeVector::lengthcalc() const&;
+  return sqrt( (m_momentum.m_x)*(m_momentum.m_x) + (m_momentum.m_Y)*(m_momentum.m_y) + (m_momentum.m_z)*(m_momentum.m_z) );
 }
 
-void ThreeVector::SetZ(double Z) {
-  m_z=Z;
+ThreeVector& Particle::GetThreeMomentum() {
+  ThreeVector v(m_momentum.m_x,m_momentum.m_y,m_momentum.m_z);
+  return v;
 }
 
-double ThreeVector::lengthcalc() const {
-  //  std::cout << "test B";
-  return (m_x*m_x + m_y*m_y + m_z*m_z);
+void Particle::SetMass(double mass) {
+  m_mass = mass;
 }
 
-double ThreeVector::length() const {
-  //  std::cout << "test A";
-  return m_length;
+void Particle::SetThreeMomentum(double px, double py, double pz) {
+  m_momentum.m_x = px;
+  m_momentum.m_y = py;
+  m_momentum.m_z = pz;
 }
 
+void Particle::SetThreeMomentum(ThreeVector& v) {
+  m_momentum = v;
+}
+
+void Particle::SetPDGCode(int PDGCode) {
+  m_PDG_code = PDGCode;
+}
 
 Particle& operator=(const Particle& rhs) {
   if(&rhs != this) {
@@ -78,14 +92,6 @@ Particle& operator=(const Particle& rhs) {
     m_momentum = rhs.m_momentum;
     m_PDG_code = rhs.m_PDG_code;
   }
-}
-
-
-ThreeVector& ThreeVector::operator=(const ThreeVector& rhs) {
-  if(&rhs != this) {
-    m_x = rhs.m_x;
-    m_y = rhs.m_y;
-    m_z = rhs.m_z;
-  }
   return *this;
 }
+

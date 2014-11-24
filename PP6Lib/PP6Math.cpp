@@ -2,6 +2,7 @@
 #include "../FileReader/FileReader.hpp"
 #include "../FourVec/FourVec.hpp"
 #include "../ThreeVec/ThreeVec.hpp"
+#include "../Particle/Particle.hpp"
 
 
 #include <iostream>
@@ -524,6 +525,8 @@ void readingfiles() { // Function that reads in particles data file and finds mu
   double arrayEp[1000];
   double arrayNm[1000]; // event number
   double arrayNp[1000]; // event number
+  Particle arrayp[1000]; // plus
+  Particle arraym[1000];// minus
 
   double arrayInvM[1000];
   double arrayInvMindexp[1000];
@@ -542,15 +545,17 @@ void readingfiles() { // Function that reads in particles data file and finds mu
     // Loop until out of lines
     while (f.nextLine()) {
       if (f.getFieldAsString(6) =="run4.dat" && f.getFieldAsString(2)=="mu+"){
-	arraypxp[numberp] = f.getFieldAsDouble(3);
-	arraypyp[numberp] = f.getFieldAsDouble(4);
-	arraypzp[numberp] = f.getFieldAsDouble(5);
+     	Particle p(-13,muonmass,f.getFieldAsDouble(3),arraypxp[numberp],arraypxp[numberp]);
+	//	arraypxp[numberp] = f.getFieldAsDouble(3);
+	//	arraypyp[numberp] = f.getFieldAsDouble(4);
+	//	arraypzp[numberp] = f.getFieldAsDouble(5);
       	arrayNp[numberp] = f.getFieldAsInt(1);
-	mom = threevectorcalc(arraypxp[numberp],arraypyp[numberp],arraypzp[numberp]);
-	arrayEp[numberp] = sqrt(mom*mom+muonmass*muonmass);
+	//	mom = threevectorcalc(arraypxp[numberp],arraypyp[numberp],arraypzp[numberp]);
+	//	arrayEp[numberp] = sqrt(mom*mom+muonmass*muonmass);
 	numberp++;
       }
       if (f.getFieldAsString(6) =="run4.dat" && f.getFieldAsString(2)=="mu-"){
+     	Particle p(13,muonmass,arraypxm[numberm],arraypxm[numberm],arraypxp[numberp]);
 	arraypxm[numberm] = f.getFieldAsDouble(3); // reads in various parts of txt file
 	arraypym[numberm] = f.getFieldAsDouble(4);
 	arraypzm[numberm] = f.getFieldAsDouble(5);
