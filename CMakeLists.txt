@@ -13,16 +13,17 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic-errors -Wall -Wextra -Werror -Wfatal-errors -Wwrite-strings -Woverloaded-virtual -fno-gnu-keywords -fstrict-aliasing")
 endif()
 
-include_directories(PP6Lib FileReader)
+include_directories(PP6Lib FileReader FourVec ThreeVec Particle)
 
 add_subdirectory(PP6Lib)
 add_subdirectory(FileReader)
 add_subdirectory(FourVec)
 add_subdirectory(ThreeVec)
+add_subdirectory(Particle)
 
 add_executable(pp6calculator pp6calculator.cpp)
 
-target_link_libraries(pp6calculator pp6lib FileReader FourVec ThreeVec)
+target_link_libraries(pp6calculator pp6lib FileReader FourVec ThreeVec Particle)
 
 install(TARGETS pp6calculator DESTINATION bin)
 
